@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:trabalhopokedex_application_1/domain/pokemon.dart';
 
@@ -44,7 +45,8 @@ class PokemonDetailScreen extends StatelessWidget {
             CircleAvatar(
               radius: 70,
               backgroundColor: Colors.grey[200],
-              child: Image.network(imageUrl), // Substitua pela URL da imagem
+              child: CachedNetworkImage(
+                  imageUrl: imageUrl), // Substitua pela URL da imagem
             ),
             Text(
               pokemon.name.english!.toLowerCase(),

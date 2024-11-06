@@ -8,8 +8,8 @@ import 'package:trabalhopokedex_application_1/domain/pokemon.dart';
 class PokemonRepositoryImpl implements PokemonRepository {
   final ApiClient apiClient;
   final NetworkMapper networkMapper;
-  final PokemonDao pokemonDao;
   final DatabaseMapper databaseMapper;
+  final PokemonDao pokemonDao; // DAO gerado pelo Floor
 
   PokemonRepositoryImpl({
     required this.pokemonDao,
@@ -21,19 +21,24 @@ class PokemonRepositoryImpl implements PokemonRepository {
   @override
   Future<List<Pokemon>> getPokemons(
       {required int page, required int limit}) async {
-    // Tentar carregar a partir do banco de dados
+    // Tenta carregar os pokémons do banco de dados
     final dbEntities = await pokemonDao.selectAll(
         limit: limit, offset: (page * limit) - limit);
-    // Se o dado já existe, carregar esse dado.
+
+    // Se o banco de dados tiver dados, retorna eles
     if (dbEntities.isNotEmpty) {
       return databaseMapper.toPokemons(dbEntities);
     }
-    // Caso contrário, buscar pela API remota
+
+    // Caso contrário, busca os dados pela API
     final networkEntity = await apiClient.getPokemons(page: page, limit: limit);
     final pokemons = networkMapper.toPokemons(networkEntity);
-    // E salvar os dados no banco local para cache
-    // await pokemonDao
-    //     .insertAll(databaseMapper.toPokemonDatabaseEntities(pokemons));
+
+    // Salva os dados no banco local para cache
+    await pokemonDao
+        .insertAll(databaseMapper.toPokemonDatabaseEntities(pokemons));
+
+    // Retorna os pokémons recebidos da API
     return pokemons;
   }
 }

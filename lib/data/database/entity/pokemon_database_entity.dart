@@ -5,29 +5,29 @@ part 'pokemon_database_entity.g.dart'; // Certifique-se de que o nome está corr
 @JsonSerializable()
 class PokemonDatabaseEntity {
   final String id;
-  @JsonKey(name: 'name.english')
+  @JsonKey(name: 'name_english')
   final String nameEnglish;
-  @JsonKey(name: 'name.japanese')
+  @JsonKey(name: 'name_japanese')
   final String nameJapanese;
-  @JsonKey(name: 'name.chinese')
+  @JsonKey(name: 'name_chinese')
   final String nameChinese;
-  @JsonKey(name: 'name.french')
+  @JsonKey(name: 'name_french')
   final String nameFrench;
   final String type1;
   final String type2;
-  @JsonKey(name: 'base.HP')
+  @JsonKey(name: 'HP')
   final int hp;
-  @JsonKey(name: 'base.Attack')
+  @JsonKey(name: 'Attack')
   final int attack;
-  @JsonKey(name: 'base.Defense')
+  @JsonKey(name: 'Defense')
   final int defense;
-  @JsonKey(name: 'base.Sp. Attack')
+  @JsonKey(name: 'spAttack')
   final int spAttack;
-  @JsonKey(name: 'base.Sp. Defense')
+  @JsonKey(name: 'spDefense')
   final int spDefense;
-  @JsonKey(name: 'base.Speed')
+  @JsonKey(name: 'Speed')
   final int speed;
-  @JsonKey(name: 'image.url')
+  @JsonKey(name: 'image_url')
   final String imageUrl;
   PokemonDatabaseEntity({
     required this.id,
@@ -58,12 +58,13 @@ abstract class PokemonDatabaseContract {
   static const String nameJapaneseColumn = "name_japanese";
   static const String nameChineseColumn = "name_chinese";
   static const String nameFrenchColumn = "name_french";
-  static const String typesColumn = "types";
+  static const String type1Column = "type1";
+  static const String type2Column = "type2";
   static const String hpColumn = "hp";
   static const String attackColumn = "attack";
   static const String defenseColumn = "defense";
-  static const String spAttackColumn = "sp_attack";
-  static const String spDefenseColumn = "sp_defense";
-  static const String speedColumn = "speed";
+  static const String spAttackColumn = "spAttack";
+  static const String spDefenseColumn = "spDefense";
+  static const String speedColumn = "Speed";
   static const String imageUrlColumn = "image_url";
 }
