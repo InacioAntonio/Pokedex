@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:trabalhopokedex_application_1/core/pokemon_provider.dart';
 import 'package:trabalhopokedex_application_1/domain/pokemon.dart';
 import 'package:trabalhopokedex_application_1/ui/widgets/PokemonCard.dart';
+import 'package:trabalhopokedex_application_1/ui/widgets/PokemonDetailScreen.dart';
 
 class PokedexScreen extends StatefulWidget {
   const PokedexScreen({super.key});
@@ -33,11 +34,17 @@ class _PokedexScreenState extends State<PokedexScreen> {
           Provider.of<PokemonProvider>(context, listen: false);
       await pokemonProvider.fetchPokemons(pageKey, 10);
       final isLastPage = pokemonProvider.pokemonList.length < 10;
+      final existingIds =
+          _pagingController.itemList?.map((pokemon) => pokemon.id).toSet() ??
+              {};
+      final newPokemons = pokemonProvider.pokemonList
+          .where((pokemon) => !existingIds.contains(pokemon.id))
+          .toList();
       if (isLastPage) {
-        _pagingController.appendLastPage(pokemonProvider.pokemonList);
+        _pagingController.appendLastPage(newPokemons.cast<Pokemon>());
       } else {
         final nextPageKey = pageKey + 1;
-        _pagingController.appendPage(pokemonProvider.pokemonList, nextPageKey);
+        _pagingController.appendPage(newPokemons, nextPageKey);
       }
     } catch (error) {
       _pagingController.error = error;
@@ -103,15 +110,41 @@ class _PokedexScreenState extends State<PokedexScreen> {
             mainAxisSpacing: 10,
           ),
           builderDelegate: PagedChildBuilderDelegate<Pokemon>(
-            itemBuilder: (context, pokemon, index) => PokemonCard(
-              name: pokemon.name.english!,
-              types: pokemon.types is List<String>
-                  ? pokemon.types as List<String>
-                  : ['Unknown'],
-              color: getColorByType(pokemon.types![0]),
-              imageUrl:
-                  'http://10.0.2.2:3000/images/${pokemon.id.toString().padLeft(3, "0")}.png',
+            itemBuilder: (context, pokemon, index) => GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PokemonDetailScreen(
+                      pokemon: pokemon,
+                      imageUrl:
+                          'http://10.0.2.2:3000/images/${pokemon.id.toString().padLeft(3, "0")}.png',
+                      types: pokemon.types is List<String>
+                          ? pokemon.types as List<String>
+                          : ['Unknown'],
+                    ),
+                  ),
+                );
+              },
+              child: PokemonCard(
+                name: pokemon.name.english!,
+                types: pokemon.types is List<String>
+                    ? pokemon.types as List<String>
+                    : ['Unknown'],
+                color: getColorByType(pokemon.types![0]),
+                imageUrl:
+                    'http://10.0.2.2:3000/images/${pokemon.id.toString().padLeft(3, "0")}.png',
+              ),
             ),
+            // itemBuilder: (context, pokemon, index) => PokemonCard(
+            //   name: pokemon.name.english!,
+            //   types: pokemon.types is List<String>
+            //       ? pokemon.types as List<String>
+            //       : ['Unknown'],
+            //   color: getColorByType(pokemon.types![0]),
+            //   imageUrl:
+            //       'http://10.0.2.2:3000/images/${pokemon.id.toString().padLeft(3, "0")}.png',
+            // ),
           ),
         ),
       ),

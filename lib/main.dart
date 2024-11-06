@@ -6,9 +6,11 @@ import 'package:trabalhopokedex_application_1/data/database/database_mapper.dart
 import 'package:trabalhopokedex_application_1/data/network/client/api_client.dart';
 import 'package:trabalhopokedex_application_1/data/network/network_mapper.dart';
 import 'package:trabalhopokedex_application_1/data/repository/pokemon_repository_impl.dart';
+import 'package:trabalhopokedex_application_1/ui/widgets/EncontroDiario.dart';
 import 'package:trabalhopokedex_application_1/ui/widgets/Pokedex.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -70,7 +72,23 @@ class MyHomePage extends StatelessWidget {
               },
             ),
             const SizedBox(height: 20),
-            const CustomButton(text: 'Encontro Diário'),
+            CustomButton(
+              text: 'Encontro Diário',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DailyEncounterScreen(
+                      pokemonRepository: PokemonRepositoryImpl(
+                          apiClient: ApiClient(baseUrl: "http://10.0.2.2:3000"),
+                          networkMapper: NetworkMapper(),
+                          databaseMapper: DatabaseMapper(),
+                          pokemonDao: PokemonDao()),
+                    ),
+                  ),
+                );
+              },
+            ),
             const SizedBox(height: 20),
             const CustomButton(text: 'Meus Pokémon'),
           ],

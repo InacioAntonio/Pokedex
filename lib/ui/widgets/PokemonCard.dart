@@ -36,6 +36,10 @@ class PokemonCard extends StatelessWidget {
         return Colors.pink.withOpacity(0.7);
       case 'bug':
         return const Color.fromARGB(255, 106, 213, 110).withOpacity(0.7);
+      case 'poison':
+        return Colors.purple.withOpacity(0.7);
+      case 'flying':
+        return const Color.fromARGB(255, 124, 137, 206);
       default:
         return Colors.grey.withOpacity(0.7); // Cor padrão
     }
