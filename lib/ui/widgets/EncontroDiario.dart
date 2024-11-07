@@ -18,6 +18,7 @@ class _DailyEncounterScreenState extends State<DailyEncounterScreen> {
   Pokemon? _pokemonOfTheDay;
   bool _hasCaptured = false;
   final int pageSize = 10;
+  bool _hasMaxPokemons = false;
   int currentPage = 1;
 
   @override
@@ -51,6 +52,11 @@ class _DailyEncounterScreenState extends State<DailyEncounterScreen> {
         _hasCaptured = prefs.getBool('hasCaptured') ?? false;
       });
     }
+    List<String> capturedPokemonIds =
+        prefs.getStringList('capturedPokemons') ?? [];
+    setState(() {
+      _hasMaxPokemons = capturedPokemonIds.length >= 6;
+    });
   }
 
   Future<void> _fetchPokemons(int pageKey) async {
@@ -97,6 +103,7 @@ class _DailyEncounterScreenState extends State<DailyEncounterScreen> {
 
     setState(() {
       _hasCaptured = true;
+      _hasMaxPokemons = capturedPokemonIds.length >= 6;
     });
   }
 
@@ -125,7 +132,7 @@ class _DailyEncounterScreenState extends State<DailyEncounterScreen> {
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: _hasCaptured
+                    onPressed: _hasCaptured || _hasMaxPokemons
                         ? null
                         : () {
                             _capturePokemon();
@@ -136,7 +143,11 @@ class _DailyEncounterScreenState extends State<DailyEncounterScreen> {
                               ),
                             );
                           },
-                    child: Text(_hasCaptured ? 'Já capturado' : 'Capturar'),
+                    child: Text(_hasCaptured
+                        ? 'Já capturado'
+                        : _hasMaxPokemons
+                            ? 'Máximo de Pokémons atingido'
+                            : 'Capturar'),
                   ),
                 ],
               ),
