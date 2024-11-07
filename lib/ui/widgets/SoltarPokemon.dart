@@ -22,7 +22,7 @@ class _DeletePokemonScreenState extends State<DeletePokemonScreen> {
     capturedPokemonIds.remove(widget.pokemon.id.toString());
     // Salvar a lista de IDs de volta no SharedPreferences.
     await prefs.setStringList('capturedPokemons', capturedPokemonIds);
-
+    await prefs.setBool('hasCaptured', false);
     Navigator.pop(
         context, true); // Retorna true para indicar que o Pokémon foi apagado
   }
