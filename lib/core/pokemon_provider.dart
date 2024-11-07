@@ -16,6 +16,7 @@ class PokemonProvider with ChangeNotifier {
       final pokemons =
           await pokemonRepository.getPokemons(page: page, limit: limit);
       _pokemonList.addAll(pokemons);
+      print("TMNC");
       print('Pokemons fetched: ${_pokemonList.length}');
       notifyListeners();
     } catch (e) {

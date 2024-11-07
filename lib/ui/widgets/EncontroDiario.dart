@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -84,6 +86,15 @@ class _DailyEncounterScreenState extends State<DailyEncounterScreen> {
   Future<void> _capturePokemon() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('hasCaptured', true);
+
+    // Adicionar o ID do Pokémon capturado à lista de Pokémons capturados
+    print(_pokemonOfTheDay!.id.toString());
+    List<String> capturedPokemonIds =
+        prefs.getStringList('capturedPokemons') ?? [];
+    capturedPokemonIds.add(_pokemonOfTheDay!.id.toString());
+    // Salvar a lista de IDs de volta no SharedPreferences.
+    await prefs.setStringList('capturedPokemons', capturedPokemonIds);
+
     setState(() {
       _hasCaptured = true;
     });

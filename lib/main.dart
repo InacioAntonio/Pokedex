@@ -7,6 +7,7 @@ import 'package:trabalhopokedex_application_1/data/network/client/api_client.dar
 import 'package:trabalhopokedex_application_1/data/network/network_mapper.dart';
 import 'package:trabalhopokedex_application_1/data/repository/pokemon_repository_impl.dart';
 import 'package:trabalhopokedex_application_1/ui/widgets/EncontroDiario.dart';
+import 'package:trabalhopokedex_application_1/ui/widgets/MeusPokemons.dart';
 import 'package:trabalhopokedex_application_1/ui/widgets/Pokedex.dart';
 
 void main() {
@@ -84,7 +85,15 @@ class MyHomePage extends StatelessWidget {
               },
             ),
             const SizedBox(height: 20),
-            const CustomButton(text: 'Meus Pokémon'),
+            CustomButton(
+              text: 'Meus Pokémon',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MeusPokemonsScreen()),
+                );
+              },
+            )
           ],
         ),
       ),

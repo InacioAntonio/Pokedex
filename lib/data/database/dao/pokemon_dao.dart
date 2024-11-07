@@ -44,12 +44,10 @@ class PokemonDao extends BaseDao {
     await db.transaction((transaction) async {
       for (final entity in entities) {
         try {
-          print("INUTIL");
           await transaction.insert(
               // O problema ta aqui nesse lixo
               PokemonDatabaseContract.pokemonTable,
               entity.toJson());
-          print("SAFADEZA");
         } on DatabaseException catch (e) {
           print("a");
           if (e.isUniqueConstraintError()) {
