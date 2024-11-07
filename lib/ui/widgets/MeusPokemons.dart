@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trabalhopokedex_application_1/core/pokemon_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:trabalhopokedex_application_1/domain/pokemon.dart'; // Para caching de imagens
+import 'package:trabalhopokedex_application_1/domain/pokemon.dart';
+import 'package:trabalhopokedex_application_1/ui/widgets/SoltarPokemon.dart'; // Para caching de imagens
 
 class MeusPokemonsScreen extends StatefulWidget {
   @override
@@ -71,6 +72,24 @@ class _MeusPokemonsScreenState extends State<MeusPokemonsScreen> {
                   ),
                   title: Text(pokemon.name.english!),
                   subtitle: Text('Tipo: ${pokemon.types![0]}'),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              DeletePokemonScreen(pokemon: pokemon),
+                        ),
+                      ).then((value) {
+                        if (value == true) {
+                          setState(() {
+                            _capturedPokemons.remove(pokemon);
+                          });
+                        }
+                      });
+                    },
+                  ),
                 );
               },
             ),
