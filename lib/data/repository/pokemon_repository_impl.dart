@@ -21,9 +21,11 @@ class PokemonRepositoryImpl implements PokemonRepository {
   @override
   Future<List<Pokemon>> getPokemons(
       {required int page, required int limit}) async {
+    print("TESTE");
     // Tenta carregar os pokémons do banco de dados
     final dbEntities = await pokemonDao.selectAll(
         limit: limit, offset: (page * limit) - limit);
+    print("BUG DO MILENIUM");
 
     // Se o banco de dados tiver dados, retorna eles
     if (dbEntities.isNotEmpty) {
@@ -32,13 +34,14 @@ class PokemonRepositoryImpl implements PokemonRepository {
 
     // Caso contrário, busca os dados pela API
     final networkEntity = await apiClient.getPokemons(page: page, limit: limit);
+    print("VSFD TANIRO");
     final pokemons = networkMapper.toPokemons(networkEntity);
 
     // Salva os dados no banco local para cache
     await pokemonDao
         .insertAll(databaseMapper.toPokemonDatabaseEntities(pokemons));
 
-    // Retorna os pokémons recebidos da API
+    // // Retorna os pokémons recebidos da API
     return pokemons;
   }
 }

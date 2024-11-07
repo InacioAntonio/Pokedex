@@ -34,7 +34,7 @@ class PokemonDatabaseEntity {
   String? id;
   Name? name;
   List<String>? type;
-  Base? base;
+  Base base;
 
   PokemonDatabaseEntity({
     required this.id,

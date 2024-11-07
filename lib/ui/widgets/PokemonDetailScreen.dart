@@ -17,17 +17,16 @@ class PokemonDetailScreen extends StatelessWidget {
       return Colors.red[100]!;
     } else if (types.contains('Water')) {
       return Colors.blue[100]!;
-    } else if (types.contains('Grass')) {
+    } else if (types.contains('Grass') || types.contains('Bug')) {
       return Colors.green[100]!;
     } else if (types.contains('Electric')) {
       return Colors.yellow[100]!;
     } else if (types.contains('Ghost')) {
       return Colors.purple[100]!;
-    } else if (types.contains('Psychic')) {
+    } else if (types.contains('Psychic') || types.contains('Poison')) {
       return Colors.purple[100]!;
     } else {
-      return Colors
-          .grey[200]!; // Cor padrão caso não encontre um tipo específico
+      return Colors.grey!; // Cor padrão caso não encontre um tipo específico
     }
   }
 
@@ -56,7 +55,7 @@ class PokemonDetailScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _buildTypeChip(types[0]),
-                if (types.length > 1) _buildTypeChip(types[1])
+                if (types.length > 1 && types[1] != "") _buildTypeChip(types[1])
               ],
             ),
             const SizedBox(height: 20),
@@ -95,6 +94,7 @@ class PokemonDetailScreen extends StatelessWidget {
       'Dark': Colors.black,
       'Steel': Colors.blueGrey,
       'Fairy': Colors.pinkAccent,
+      "": Colors.transparent
     };
 
     return Padding(

@@ -22,12 +22,12 @@ class NetworkMapper {
         ),
         types: entity.type,
         base: Base(
-          hp: entity.base!.hp,
-          attack: entity.base!.attack,
-          defense: entity.base!.defense,
-          spAttack: entity.base!.spAttack,
-          spDefense: entity.base!.spDefense,
-          speed: entity.base!.speed,
+          hp: entity.base.hp ?? 0,
+          attack: entity.base.attack ?? 0,
+          defense: entity.base.defense ?? 0,
+          spAttack: entity.base.spAttack ?? 0,
+          spDefense: entity.base.spDefense ?? 0,
+          speed: entity.base.speed ?? 0,
         ),
       );
     } catch (e) {

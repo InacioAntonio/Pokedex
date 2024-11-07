@@ -38,9 +38,7 @@ PokemonDatabaseEntity _$PokemonDatabaseEntityFromJson(
           ? null
           : Name.fromJson(json['name'] as Map<String, dynamic>),
       type: (json['type'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      base: json['base'] == null
-          ? null
-          : Base.fromJson(json['base'] as Map<String, dynamic>),
+      base: Base.fromJson(json['base'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PokemonDatabaseEntityToJson(

@@ -9,7 +9,7 @@ class DatabaseMapper {
   Pokemon toPokemon(PokemonDatabaseEntity entity) {
     try {
       print(entity.id);
-
+      print(entity.speed);
       return Pokemon(
         id: int.parse(entity.id),
         name: Name(
@@ -20,12 +20,12 @@ class DatabaseMapper {
         ),
         types: [entity.type1, entity.type2],
         base: Base(
-          hp: entity.hp,
-          attack: entity.attack,
-          defense: entity.defense,
-          spAttack: entity.spAttack,
-          spDefense: entity.spDefense,
-          speed: entity.speed,
+          hp: entity.HP ?? 0,
+          attack: entity.Attack ?? 0,
+          defense: entity.Defense ?? 0,
+          spAttack: entity.spAttack ?? 0,
+          spDefense: entity.spDefense ?? 0,
+          speed: entity.speed ?? 0,
         ),
       );
     } catch (e) {
@@ -42,8 +42,10 @@ class DatabaseMapper {
   }
 
   PokemonDatabaseEntity toPokemonDatabaseEntity(Pokemon pokemon) {
+    //Nao entra aqui
     try {
       print(pokemon.id);
+      print(pokemon.base.speed);
       return PokemonDatabaseEntity(
         id: pokemon.id.toString(),
         nameEnglish: pokemon.name.english!,
@@ -52,12 +54,12 @@ class DatabaseMapper {
         nameFrench: pokemon.name.french!,
         type1: pokemon.types![0],
         type2: pokemon.types!.length > 1 ? pokemon.types![1] : "",
-        hp: pokemon.base.hp!,
-        attack: pokemon.base.attack!,
-        defense: pokemon.base.defense!,
-        spAttack: pokemon.base.spAttack!,
-        spDefense: pokemon.base.spDefense!,
-        speed: pokemon.base.speed!,
+        HP: pokemon.base.hp ?? 0,
+        Attack: pokemon.base.attack ?? 0,
+        Defense: pokemon.base.defense ?? 0,
+        spAttack: pokemon.base.spAttack ?? 0,
+        spDefense: pokemon.base.spDefense ?? 0,
+        speed: pokemon.base.speed ?? 0,
         imageUrl:
             'http://10.0.2.2/images/pokemon/${pokemon.id.toString().padLeft(3, "0")}.png',
       );

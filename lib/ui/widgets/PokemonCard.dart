@@ -40,6 +40,8 @@ class PokemonCard extends StatelessWidget {
         return Colors.purple.withOpacity(0.7);
       case 'flying':
         return const Color.fromARGB(255, 124, 137, 206);
+      case "":
+        return Colors.transparent;
       default:
         return Colors.grey.withOpacity(0.7); // Cor padrão
     }
@@ -78,9 +80,9 @@ class PokemonCard extends StatelessWidget {
                 label: Text(types[0]),
                 backgroundColor: getColorByType(types[0]),
               ),
-              if (types.length > 1)
+              if (types.length > 1 && types[1] != "")
                 Chip(
-                  label: Text(types[1] ?? ''),
+                  label: Text(types[1] ?? ""),
                   backgroundColor:
                       getColorByType(types[1]) ?? Colors.transparent,
                 )

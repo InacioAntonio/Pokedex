@@ -83,6 +83,8 @@ class _PokedexScreenState extends State<PokedexScreen> {
         return Colors.purple;
       case 'ground':
         return Colors.brown;
+      case "":
+        return Colors.transparent;
       default:
         return Colors.grey; // Cor padrão
     }
@@ -136,15 +138,6 @@ class _PokedexScreenState extends State<PokedexScreen> {
                     'http://10.0.2.2:3000/images/${pokemon.id.toString().padLeft(3, "0")}.png',
               ),
             ),
-            // itemBuilder: (context, pokemon, index) => PokemonCard(
-            //   name: pokemon.name.english!,
-            //   types: pokemon.types is List<String>
-            //       ? pokemon.types as List<String>
-            //       : ['Unknown'],
-            //   color: getColorByType(pokemon.types![0]),
-            //   imageUrl:
-            //       'http://10.0.2.2:3000/images/${pokemon.id.toString().padLeft(3, "0")}.png',
-            // ),
           ),
         ),
       ),

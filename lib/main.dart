@@ -78,13 +78,7 @@ class MyHomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => DailyEncounterScreen(
-                      pokemonRepository: PokemonRepositoryImpl(
-                          apiClient: ApiClient(baseUrl: "http://10.0.2.2:3000"),
-                          networkMapper: NetworkMapper(),
-                          databaseMapper: DatabaseMapper(),
-                          pokemonDao: PokemonDao()),
-                    ),
+                    builder: (context) => DailyEncounterScreen(),
                   ),
                 );
               },
