@@ -1,10 +1,11 @@
 # trabalhopokedex_application_1
 
-A new Flutter project.
-
 ## Getting Started
 
 This project is a starting point for a Flutter application.
+Unit 1 project of the Mobile Device Programming discipline of the System Analysis and Development course at UFRN-EAJ,
+which asked us for a pokedex in the repository model.
+
 
 A few resources to get you started if this is your first Flutter project:
 
