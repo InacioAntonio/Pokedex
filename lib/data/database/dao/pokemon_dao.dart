@@ -44,10 +44,21 @@ class PokemonDao extends BaseDao {
     await db.transaction((transaction) async {
       for (final entity in entities) {
         try {
+          // final pokemons = await selectAll();
+
+          // if (pokemons.contains(entities)) {
+          //   await transaction.update(
+          //     PokemonDatabaseContract.pokemonTable,
+          //     entity.toJson(),
+          //     where: '${PokemonDatabaseContract.idColumn} = ?',
+          //     whereArgs: [entity.id],
+          //   );
+          // } else {
           await transaction.insert(
               // O problema ta aqui nesse lixo
               PokemonDatabaseContract.pokemonTable,
               entity.toJson());
+          // }
         } on DatabaseException catch (e) {
           print("a");
           if (e.isUniqueConstraintError()) {

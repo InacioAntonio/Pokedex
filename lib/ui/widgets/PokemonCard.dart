@@ -61,18 +61,16 @@ class PokemonCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             child: CachedNetworkImage(
               imageUrl: imageUrl,
-              width: 100,
-              height: 100,
+              width: 90,
+              height: 90,
               fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(height: 8),
           Text(
             name,
             style: const TextStyle(
                 color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 8),
           Wrap(
             spacing: 4,
             children: [
